@@ -67,7 +67,12 @@ struct String get_line(struct MkAllocator allocator, FILE * file) {
         if (c == EOF) {
             if (ferror(file)) {
                 mk_allocator_free(allocator, string.string);
-                return (struct String){.error = mk_error_create(MK_ERROR_IO, "Error reading from file!")};
+                return (struct String){
+                    .error = mk_error_create(
+                        MK_ERROR_IO,
+                        "Error reading from file!"
+                    )
+                };
             }
             break;
         }
