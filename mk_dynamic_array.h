@@ -137,7 +137,7 @@ void mk_dynamic_array_remove_unordered(
     size_t item_size
 );
 
-#if defined(MK_DA_IMPLEMENTATION) || defined(MK_IMPLEMENTATION)
+#if defined MK_DA_IMPLEMENTATION || defined MK_IMPLEMENTATION
 
 #include <stdio.h>
 #include <stdlib.h>

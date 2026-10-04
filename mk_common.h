@@ -80,7 +80,7 @@ struct MkAllocator mk_allocator_get_std_allocator(
     void
 );
 
-#if defined (MK_COMMON_IMPLEMENTATION) || defined (MK_IMPLEMENTATION)
+#if defined MK_COMMON_IMPLEMENTATION || defined MK_IMPLEMENTATION
 
 #include <stdlib.h>
 

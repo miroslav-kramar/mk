@@ -43,7 +43,7 @@ struct MkAllocator mk_tracking_allocator_get_allocator(
     MkTrackingAllocator * tracking_allocator
 );
 
-#if defined(MK_TRACKING_ALLOCATOR_IMPLEMENTATION) || defined(MK_IMPLEMENTATION)
+#if defined MK_TRACKING_ALLOCATOR_IMPLEMENTATION || defined MK_IMPLEMENTATION
 
 #include <stdlib.h>
 #include <stdbool.h>
