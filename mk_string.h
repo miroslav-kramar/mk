@@ -12,6 +12,30 @@ typedef struct {
     size_t length;
 } MkString;
 
+MkString mk_string_create(
+    struct MkAllocator allocator
+);
+
+void mk_string_destroy(
+    MkString * string
+);
+
+void mk_string_append_char_array(
+    MkString * string,
+    const char * array,
+    size_t length
+);
+
+void mk_string_append_cstring(
+    MkString * string,
+    const char * cstring
+);
+
+void mk_string_append_char(
+    MkString * string,
+    char c
+);
+
 #if defined MK_STRING_IMPLEMENTATION || defined MK_IMPLEMENTATION
 
 #include <string.h>
