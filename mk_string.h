@@ -36,7 +36,7 @@ void mk_string_destroy(String * string) {
 }
 
 void string_append_char_array(String * string, const char * array, size_t length) {
-    if (string->length == 0) {
+    if (string->capacity == 0) {
         string->string = NULL;
     }
     mk_dynamic_array_append_many(
