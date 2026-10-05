@@ -26,7 +26,7 @@ void mk_dynamic_array_reserve_capacity(
     size_t item_size
 );
 
-void mk_dynamic_array_adjust_capacity(
+void mk_dynamic_array_shrink_capacity(
     struct MkError * error,
     struct MkAllocator allocator,
     void ** array,
@@ -209,7 +209,7 @@ void mk_dynamic_array_reserve_capacity(
     return;
 }
 
-void mk_dynamic_array_adjust_capacity(
+void mk_dynamic_array_shrink_capacity(
     struct MkError * error,
     struct MkAllocator allocator,
     void ** array,
@@ -380,7 +380,7 @@ void mk_dynamic_array_remove_many(
         (*length - (index + count - 1)) * item_size
     );
     *length -= count;
-    mk_dynamic_array_adjust_capacity(
+    mk_dynamic_array_shrink_capacity(
         error,
         allocator,
         array,
@@ -474,7 +474,7 @@ void mk_dynamic_array_remove_unordered_many(
         );
     }
     *length -= count;
-    mk_dynamic_array_adjust_capacity(
+    mk_dynamic_array_shrink_capacity(
         error,
         allocator,
         array,
