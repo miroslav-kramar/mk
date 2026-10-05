@@ -41,7 +41,9 @@ void mk_string_append_char(
 #include <string.h>
 #include <assert.h>
 
-MkString mk_string_create(struct MkAllocator allocator) {
+MkString mk_string_create(
+    struct MkAllocator allocator
+) {
     MkString s = {0};
     s.allocator = allocator;
     s.error = mk_error_create(MK_ERROR_NONE, NULL);
@@ -51,7 +53,9 @@ MkString mk_string_create(struct MkAllocator allocator) {
     return s;
 }
 
-void mk_string_destroy(MkString * string) {
+void mk_string_destroy(
+    MkString * string
+) {
     mk_allocator_free(string->allocator, string->string);
     string->error = mk_error_create(MK_ERROR_NONE, NULL);
     string->string = "";
@@ -59,7 +63,11 @@ void mk_string_destroy(MkString * string) {
     string->length = 0;
 }
 
-void mk_string_append_char_array(MkString * string, const char * array, size_t length) {
+void mk_string_append_char_array(
+    MkString * string,
+    const char * array,
+    size_t length
+) {
     if (string->capacity == 0) {
         string->string = NULL;
     }
@@ -89,11 +97,17 @@ void mk_string_append_char_array(MkString * string, const char * array, size_t l
     string->length--;
 }
 
-void mk_string_append_cstring(MkString * string, const char * cstring) {
+void mk_string_append_cstring(
+    MkString * string,
+    const char * cstring
+) {
     string_append_char_array(string, cstring, strlen(cstring));
 }
 
-void mk_string_append_char(MkString * string, char c) {
+void mk_string_append_char(
+    MkString * string,
+    char c
+) {
     string_append_char_array(string, &c, 1);
 }
 
