@@ -24,6 +24,11 @@ MkString mk_string_create(
     struct MkAllocator allocator
 );
 
+MkString mk_string_create_from_cstring(
+    struct MkAllocator allocator,
+    const char * cstring
+);
+
 void mk_string_destroy(
     MkString * string
 );
@@ -44,6 +49,11 @@ void mk_string_append_char(
     char c
 );
 
+void mk_string_append(
+    MkString * string,
+    MkString to_append
+);
+
 // -----------------------------------------------------------------------------
 // IMPLEMENTATION
 // -----------------------------------------------------------------------------
@@ -62,6 +72,15 @@ MkString mk_string_create(
     s.string = "";
     s.capacity = 0;
     s.length = 0;
+    return s;
+}
+
+MkString mk_string_create_from_cstring(
+    struct MkAllocator allocator,
+    const char * cstring
+) {
+    MkString s = mk_string_create(allocator);
+    mk_string_append_cstring(&s, cstring);
     return s;
 }
 
@@ -130,6 +149,13 @@ void mk_string_append_char(
     char c
 ) {
     mk_string_append_char_array(string, &c, 1);
+}
+
+void mk_string_append(
+    MkString * string,
+    MkString to_append
+) {
+    mk_string_append_char_array(string, to_append.string, to_append.length);
 }
 
 #endif // IMPLEMENTATION

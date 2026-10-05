@@ -251,6 +251,13 @@ void mk_dynamic_array_insert_many(
         fprintf(stderr, "Index out of bounds!\n");
         abort();
     }
+    if (
+        (unsigned char *)items >= (unsigned char *)*array &&
+        (unsigned char *)items <= (unsigned char *)*array + *length * item_size
+    ) {
+        fprintf(stderr, "Inserting array (or its subarray) to itself is not allowed!\n");
+        abort();
+    }
     mk_dynamic_array_reserve_capacity(
         error,
         allocator,
