@@ -11,13 +11,13 @@ String get_line(struct MkAllocator allocator, FILE * file) {
         int c = fgetc(file);
         if (c == EOF) {
             if (ferror(file)) {
-                mk_allocator_free(allocator, string.string);
-                return (String){
-                    .error = mk_error_create(
-                        MK_ERROR_IO,
-                        "Error reading from file!"
-                    )
-                };
+                mk_string_destroy(&string);
+                String faulty = string_create(allocator);
+                faulty.error = mk_error_create(
+                    MK_ERROR_IO,
+                    "Failed to read from file!"
+                );
+                return faulty;
             }
             break;
         }
@@ -26,8 +26,11 @@ String get_line(struct MkAllocator allocator, FILE * file) {
         }
         string_append_char(&string, c);
         if (string.error.type != MK_ERROR_NONE) {
-            mk_allocator_free(allocator, string.string);
-            return (String){.error = string.error};
+            struct MkError error = string.error;
+            mk_string_destroy(&string);
+            String faulty = string_create(allocator);
+            faulty.error = error;
+            return faulty;
         }
     }
     return string;

@@ -27,6 +27,14 @@ String string_create(struct MkAllocator allocator) {
     return s;
 }
 
+void mk_string_destroy(String * string) {
+    mk_allocator_free(string->allocator, string->string);
+    string->error = mk_error_create(MK_ERROR_NONE, NULL);
+    string->string = "";
+    string->capacity = 0;
+    string->length = 0;
+}
+
 void string_append_char_array(String * string, const char * array, size_t length) {
     if (string->length == 0) {
         string->string = NULL;
