@@ -8,7 +8,9 @@
 #define MK_X_MACRO_LIST_ERROR_TYPE \
     X(MK_ERROR_NONE) \
     X(MK_ERROR_OOM) \
-    X(MK_ERROR_IO)
+    X(MK_ERROR_IO) \
+    X(MK_ERROR_FORMAT) \
+    X(MK_ERROR_RANGE)
 
 enum MkErrorType {
     #define X(type) type,
