@@ -3,30 +3,30 @@
 
 #include "mk_common.h"
 
-struct MkStringToSignedResult {
+struct MkUtilsStringToSignedResult {
     struct MkError error;
     long long result;
 };
 
-struct MkStringToUnsignedResult {
+struct MkUtilsStringToUnsignedResult {
     struct MkError error;
     unsigned long long result;
 };
 
-struct MkStringToFloatingResult {
+struct MkUtilsStringToFloatingResult {
     struct MkError error;
     double result;
 };
 
-struct MkStringToSignedResult mk_string_to_signed(
+struct MkUtilsStringToSignedResult mk_utils_string_to_signed(
     const char * string
 );
 
-struct MkStringToUnsignedResult mk_string_to_unsigned(
+struct MkUtilsStringToUnsignedResult mk_utils_string_to_unsigned(
     const char * string
 );
 
-struct MkStringToFloatingResult mk_string_to_floating(
+struct MkUtilsStringToFloatingResult mk_utils_string_to_floating(
     const char * string
 );
 
@@ -36,10 +36,10 @@ struct MkStringToFloatingResult mk_string_to_floating(
 #include <ctype.h>
 #include <errno.h>
 
-struct MkStringToSignedResult mk_string_to_signed(
+struct MkUtilsStringToSignedResult mk_utils_string_to_signed(
     const char * string
 ) {
-    struct MkStringToSignedResult out = {0};
+    struct MkUtilsStringToSignedResult out = {0};
     out.error = mk_error_create(MK_ERROR_NONE, NULL);
     out.result = 0;
 
@@ -73,10 +73,10 @@ struct MkStringToSignedResult mk_string_to_signed(
     return out;
 }
 
-struct MkStringToUnsignedResult mk_string_to_unsigned(
+struct MkUtilsStringToUnsignedResult mk_utils_string_to_unsigned(
     const char * string
 ) {
-    struct MkStringToUnsignedResult out = {0};
+    struct MkUtilsStringToUnsignedResult out = {0};
     out.error = mk_error_create(MK_ERROR_NONE, NULL);
     out.result = 0;
 
@@ -124,10 +124,10 @@ struct MkStringToUnsignedResult mk_string_to_unsigned(
     return out;
 }
 
-struct MkStringToFloatingResult mk_string_to_floating(
+struct MkUtilsStringToFloatingResult mk_utils_string_to_floating(
     const char * string
 ) {
-    struct MkStringToFloatingResult out = {0};
+    struct MkUtilsStringToFloatingResult out = {0};
     out.error = mk_error_create(MK_ERROR_NONE, NULL);
     out.result = 0;
 

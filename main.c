@@ -35,7 +35,7 @@ int main() {
     printf("SIGNED\n");
     printf("--------------------\n");
     for (size_t i = 0; i < mk_countof(inputs); i++) {
-        struct MkStringToSignedResult r = mk_string_to_signed(inputs[i]);
+        struct MkUtilsStringToSignedResult r = mk_utils_string_to_signed(inputs[i]);
         printf("input:  `%s`\n", inputs[i]);
         printf("result: %lld\n", r.result);
         mk_error_print(r.error, stdout);
@@ -46,7 +46,7 @@ int main() {
     printf("UNSIGNED\n");
     printf("--------------------\n");
     for (size_t i = 0; i < mk_countof(inputs); i++) {
-        struct MkStringToUnsignedResult r = mk_string_to_unsigned(inputs[i]);
+        struct MkUtilsStringToUnsignedResult r = mk_utils_string_to_unsigned(inputs[i]);
         printf("input:  `%s`\n", inputs[i]);
         printf("result: %llu\n", r.result);
         mk_error_print(r.error, stdout);
@@ -57,7 +57,7 @@ int main() {
     printf("FLOATING\n");
     printf("--------------------\n");
     for (size_t i = 0; i < mk_countof(inputs); i++) {
-        struct MkStringToFloatingResult r = mk_string_to_floating(inputs[i]);
+        struct MkUtilsStringToFloatingResult r = mk_utils_string_to_floating(inputs[i]);
         printf("input:  `%s`\n", inputs[i]);
         printf("result: %f\n", r.result);
         mk_error_print(r.error, stdout);
