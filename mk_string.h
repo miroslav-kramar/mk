@@ -83,6 +83,15 @@ void mk_string_append_char_array(
     if (string->capacity == 0) {
         string->string = NULL;
     }
+    mk_dynamic_array_reserve_capacity(
+        &string->error,
+        string->allocator,
+        (void**)&string->string,
+        &string->capacity,
+        &string->length,
+        16,
+        sizeof(string->string[0])
+    );
     mk_dynamic_array_append_many(
         &string->error,
         string->allocator,
@@ -100,7 +109,7 @@ void mk_string_append_char_array(
         &string->capacity,
         &string->length,
         "",
-        sizeof(char)
+        sizeof(string->string[0])
     );
     if (string->error.type != MK_ERROR_NONE) {
         return;
