@@ -5,14 +5,14 @@
 #include "mk_tracking_allocator.h"
 #include "mk_string.h"
 
-String get_line(struct MkAllocator allocator, FILE * file) {
-    String string = string_create(allocator);
+MkString get_line(struct MkAllocator allocator, FILE * file) {
+    MkString string = mk_string_create(allocator);
     while (1) {
         int c = fgetc(file);
         if (c == EOF) {
             if (ferror(file)) {
                 mk_string_destroy(&string);
-                String faulty = string_create(allocator);
+                MkString faulty = mk_string_create(allocator);
                 faulty.error = mk_error_create(
                     MK_ERROR_IO,
                     "Failed to read from file!"
@@ -24,11 +24,11 @@ String get_line(struct MkAllocator allocator, FILE * file) {
         if (c == '\n') {
             break;
         }
-        string_append_char(&string, c);
+        mk_string_append_char(&string, c);
         if (string.error.type != MK_ERROR_NONE) {
             struct MkError error = string.error;
             mk_string_destroy(&string);
-            String faulty = string_create(allocator);
+            MkString faulty = mk_string_create(allocator);
             faulty.error = error;
             return faulty;
         }
@@ -41,7 +41,7 @@ int main() {
     MkTrackingAllocator ta = mk_tracking_allocator_create(std_allocator);
     struct MkAllocator allocator = mk_tracking_allocator_get_allocator(&ta);
 
-    String line = get_line(allocator, stdin);
+    MkString line = get_line(allocator, stdin);
     if (line.error.type != MK_ERROR_NONE) {
         mk_error_print(line.error, stdout);
         return 1;

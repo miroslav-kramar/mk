@@ -10,15 +10,15 @@ typedef struct {
     char * string;
     size_t capacity;
     size_t length;
-} String;
+} MkString;
 
 #if defined MK_STRING_IMPLEMENTATION || defined MK_IMPLEMENTATION
 
 #include <string.h>
 #include <assert.h>
 
-String string_create(struct MkAllocator allocator) {
-    String s = {0};
+MkString mk_string_create(struct MkAllocator allocator) {
+    MkString s = {0};
     s.allocator = allocator;
     s.error = mk_error_create(MK_ERROR_NONE, NULL);
     s.string = "";
@@ -27,7 +27,7 @@ String string_create(struct MkAllocator allocator) {
     return s;
 }
 
-void mk_string_destroy(String * string) {
+void mk_string_destroy(MkString * string) {
     mk_allocator_free(string->allocator, string->string);
     string->error = mk_error_create(MK_ERROR_NONE, NULL);
     string->string = "";
@@ -35,7 +35,7 @@ void mk_string_destroy(String * string) {
     string->length = 0;
 }
 
-void string_append_char_array(String * string, const char * array, size_t length) {
+void mk_string_append_char_array(MkString * string, const char * array, size_t length) {
     if (string->capacity == 0) {
         string->string = NULL;
     }
@@ -65,11 +65,11 @@ void string_append_char_array(String * string, const char * array, size_t length
     string->length--;
 }
 
-void string_append_cstring(String * string, const char * cstring) {
+void mk_string_append_cstring(MkString * string, const char * cstring) {
     string_append_char_array(string, cstring, strlen(cstring));
 }
 
-void string_append_char(String * string, char c) {
+void mk_string_append_char(MkString * string, char c) {
     string_append_char_array(string, &c, 1);
 }
 
