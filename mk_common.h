@@ -7,6 +7,8 @@
 
 #include <stdio.h>
 
+// Macros ----------------------------------------------------------------------
+
 #define mk_countof(x) (sizeof(x)/sizeof(x[0]))
 
 #define MK_X_MACRO_LIST_ERROR_TYPE \
@@ -15,6 +17,8 @@
     X(MK_ERROR_IO) \
     X(MK_ERROR_FORMAT) \
     X(MK_ERROR_RANGE)
+
+// Types -----------------------------------------------------------------------
 
 enum MkErrorType {
     #define X(type) type,
@@ -37,6 +41,8 @@ struct MkAllocator {
     MkAllocatorReallocFunction realloc;
     MkAllocatorFreeFunction free;
 };
+
+// Functions -------------------------------------------------------------------
 
 const char * mk_error_type_to_string(
     enum MkErrorType type

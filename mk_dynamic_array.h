@@ -7,6 +7,8 @@
 
 #include "mk_common.h"
 
+// Functions -------------------------------------------------------------------
+
 void mk_dynamic_array_create(
     struct MkError * error,
     void ** array,

@@ -8,6 +8,8 @@
 #include "mk_common.h"
 #include "mk_dynamic_array.h"
 
+// Types -----------------------------------------------------------------------
+
 typedef struct {
     struct MkAllocator allocator;
     struct MkError error;
@@ -15,6 +17,8 @@ typedef struct {
     size_t capacity;
     size_t length;
 } MkString;
+
+// Functions -------------------------------------------------------------------
 
 MkString mk_string_create(
     struct MkAllocator allocator

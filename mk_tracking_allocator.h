@@ -8,6 +8,8 @@
 #include "mk_common.h"
 #include "mk_dynamic_array.h"
 
+// Types -----------------------------------------------------------------------
+
 typedef struct {
     void * pointer;
 } MkTrackingAllocatorRecord;
@@ -19,6 +21,8 @@ typedef struct {
     size_t capacity;
     size_t length;
 } MkTrackingAllocator;
+
+// Functions -------------------------------------------------------------------
 
 MkTrackingAllocator mk_tracking_allocator_create(
     struct MkAllocator allocator

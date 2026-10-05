@@ -7,6 +7,8 @@
 
 #include "mk_common.h"
 
+// Types -----------------------------------------------------------------------
+
 struct MkUtilsStringToSignedResult {
     struct MkError error;
     long long result;
@@ -21,6 +23,8 @@ struct MkUtilsStringToFloatingResult {
     struct MkError error;
     double result;
 };
+
+// Functions -------------------------------------------------------------------
 
 struct MkUtilsStringToSignedResult mk_utils_string_to_signed(
     const char * string
