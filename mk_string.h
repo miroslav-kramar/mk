@@ -101,14 +101,14 @@ void mk_string_append_cstring(
     MkString * string,
     const char * cstring
 ) {
-    string_append_char_array(string, cstring, strlen(cstring));
+    mk_string_append_char_array(string, cstring, strlen(cstring));
 }
 
 void mk_string_append_char(
     MkString * string,
     char c
 ) {
-    string_append_char_array(string, &c, 1);
+    mk_string_append_char_array(string, &c, 1);
 }
 
 #endif // IMPLEMENTATION
