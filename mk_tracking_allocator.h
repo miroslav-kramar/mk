@@ -1,6 +1,10 @@
 #ifndef MK_TRACKING_ALLOCATOR_H_
 #define MK_TRACKING_ALLOCATOR_H_
 
+// -----------------------------------------------------------------------------
+// PUBLIC HEADER
+// -----------------------------------------------------------------------------
+
 #include "mk_common.h"
 #include "mk_dynamic_array.h"
 
@@ -42,6 +46,10 @@ void mk_tracking_allocator_free(
 struct MkAllocator mk_tracking_allocator_get_allocator(
     MkTrackingAllocator * tracking_allocator
 );
+
+// -----------------------------------------------------------------------------
+// IMPLEMENTATION
+// -----------------------------------------------------------------------------
 
 #if defined MK_TRACKING_ALLOCATOR_IMPLEMENTATION || defined MK_IMPLEMENTATION
 

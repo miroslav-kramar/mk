@@ -1,6 +1,10 @@
 #ifndef MK_DYNAMIC_ARRAY_H_
 #define MK_DYNAMIC_ARRAY_H_
 
+// -----------------------------------------------------------------------------
+// PUBLIC HEADER
+// -----------------------------------------------------------------------------
+
 #include "mk_common.h"
 
 void mk_dynamic_array_create(
@@ -136,6 +140,10 @@ void mk_dynamic_array_remove_unordered(
     size_t index,
     size_t item_size
 );
+
+// -----------------------------------------------------------------------------
+// IMPLEMENTATION
+// -----------------------------------------------------------------------------
 
 #if defined MK_DA_IMPLEMENTATION || defined MK_IMPLEMENTATION
 

@@ -1,6 +1,10 @@
 #ifndef MK_UTILS_H_
 #define MK_UTILS_H_
 
+// -----------------------------------------------------------------------------
+// PUBLIC HEADER
+// -----------------------------------------------------------------------------
+
 #include "mk_common.h"
 
 struct MkUtilsStringToSignedResult {
@@ -29,6 +33,10 @@ struct MkUtilsStringToUnsignedResult mk_utils_string_to_unsigned(
 struct MkUtilsStringToFloatingResult mk_utils_string_to_floating(
     const char * string
 );
+
+// -----------------------------------------------------------------------------
+// IMPLEMENTATION
+// -----------------------------------------------------------------------------
 
 #if defined MK_UTILS_IMPLEMENTATION || defined MK_IMPLEMENTATION
 

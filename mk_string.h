@@ -1,6 +1,10 @@
 #ifndef MK_STRING_H_
 #define MK_STRING_H_
 
+// -----------------------------------------------------------------------------
+// PUBLIC HEADER
+// -----------------------------------------------------------------------------
+
 #include "mk_common.h"
 #include "mk_dynamic_array.h"
 
@@ -35,6 +39,10 @@ void mk_string_append_char(
     MkString * string,
     char c
 );
+
+// -----------------------------------------------------------------------------
+// IMPLEMENTATION
+// -----------------------------------------------------------------------------
 
 #if defined MK_STRING_IMPLEMENTATION || defined MK_IMPLEMENTATION
 

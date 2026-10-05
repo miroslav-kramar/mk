@@ -1,6 +1,10 @@
 #ifndef MK_COMMON_H_
 #define MK_COMMON_H_
 
+// -----------------------------------------------------------------------------
+// PUBLIC HEADER
+// -----------------------------------------------------------------------------
+
 #include <stdio.h>
 
 #define mk_countof(x) (sizeof(x)/sizeof(x[0]))
@@ -81,6 +85,10 @@ void mk_allocator_std_free(
 struct MkAllocator mk_allocator_get_std_allocator(
     void
 );
+
+// -----------------------------------------------------------------------------
+// IMPLEMENTATION
+// -----------------------------------------------------------------------------
 
 #if defined MK_COMMON_IMPLEMENTATION || defined MK_IMPLEMENTATION
 
