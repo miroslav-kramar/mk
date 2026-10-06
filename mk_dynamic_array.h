@@ -16,6 +16,14 @@ void mk_dynamic_array_create(
     size_t * length
 );
 
+void mk_dynamic_array_destroy(
+    struct MkError * error,
+    struct MkAllocator allocator,
+    void ** array,
+    size_t * capacity,
+    size_t * length
+);
+
 void mk_dynamic_array_reserve_capacity(
     struct MkError * error,
     struct MkAllocator allocator,
