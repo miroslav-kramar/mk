@@ -152,6 +152,7 @@ void mk_dynamic_array_remove_unordered(
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 void mk_dynamic_array_create(
     struct MkError * error,
@@ -251,13 +252,33 @@ void mk_dynamic_array_insert_many(
         fprintf(stderr, "Index out of bounds!\n");
         abort();
     }
-    if (
+
+    bool overlaps =
         (unsigned char *)items >= (unsigned char *)*array &&
-        (unsigned char *)items <= (unsigned char *)*array + *length * item_size
-    ) {
-        fprintf(stderr, "Inserting array (or its subarray) to itself is not allowed!\n");
-        abort();
+        (unsigned char *)items <= (unsigned char *)*array + *length * item_size;
+    if (overlaps) {
+        size_t new_length = *length + items_length;
+        size_t new_capacity = 1;
+        while (new_capacity < new_length) {
+            new_capacity *= 2;
+        }
+        void * new_array = mk_allocator_alloc(allocator, new_capacity * item_size);
+        if (new_array == NULL) {
+            *error = mk_error_create(MK_ERROR_OOM, "Out of memory!");
+            return;
+        }
+
+        memcpy((unsigned char *)new_array, *array, index * item_size);
+        memcpy((unsigned char *)new_array + index * item_size, items, items_length * item_size);
+        memcpy((unsigned char *)new_array + (index + items_length) * item_size, (unsigned char *)*array + index * item_size, (*length - index) * item_size);
+
+        mk_allocator_free(allocator, *array);
+        *array = new_array;
+        *capacity = new_capacity;
+        *length = new_length;
+        return;
     }
+
     mk_dynamic_array_reserve_capacity(
         error,
         allocator,

@@ -6,6 +6,8 @@
 #include "mk_string.h"
 
 int main() {
+    mk_allocator_enable_debug_output = true;
+
     struct MkAllocator std_allocator = mk_allocator_get_std_allocator();
     MkTrackingAllocator ta = mk_tracking_allocator_create(std_allocator);
     struct MkAllocator allocator = mk_tracking_allocator_get_allocator(&ta);
@@ -15,31 +17,29 @@ int main() {
     MkString c = mk_string_create_from_cstring(allocator, "World");
     MkString d = mk_string_create_from_cstring(allocator, "!");
 
+    
     MkString result = mk_string_create(allocator);
-    printf("capacity: %zu\n", result.capacity);
-
     mk_string_append(&result, a);
-    printf("capacity: %zu\n", result.capacity);
-    
+    mk_tracking_allocator_dump(&ta, stdout);
+
     mk_string_append(&result, b);
-    printf("capacity: %zu\n", result.capacity);
-    
+    mk_tracking_allocator_dump(&ta, stdout);
+
     mk_string_append(&result, c);
-    printf("capacity: %zu\n", result.capacity);
-    
+    mk_tracking_allocator_dump(&ta, stdout);
+
     mk_string_append(&result, d);
-    printf("capacity: %zu\n", result.capacity);
+    mk_tracking_allocator_dump(&ta, stdout);
 
     mk_string_append(&result, result);
-    printf("capacity: %zu\n", result.capacity);
-
+    mk_tracking_allocator_dump(&ta, stdout);
+    
     if (result.error.type != MK_ERROR_NONE) {
         mk_error_print(result.error, stdout);
         abort();
     }
 
     printf("`%s`\n", result.string);
-
     mk_tracking_allocator_destroy(&ta);
     return 0;
 }

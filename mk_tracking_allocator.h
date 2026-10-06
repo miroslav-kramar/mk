@@ -32,6 +32,11 @@ void mk_tracking_allocator_destroy(
     MkTrackingAllocator * tracking_allocator
 );
 
+void mk_tracking_allocator_dump(
+    const MkTrackingAllocator * tracking_allocator,
+    FILE * file
+);
+
 void * mk_tracking_allocator_realloc(
     MkTrackingAllocator * tracking_allocator,
     void * pointer, size_t size
@@ -91,6 +96,17 @@ void mk_tracking_allocator_destroy(
     tracking_allocator->length = 0;
 }
 
+void mk_tracking_allocator_dump(
+    const MkTrackingAllocator * tracking_allocator,
+    FILE * file
+) {
+    fprintf(file, "Number of entries: %zu\n", tracking_allocator->length);
+    fprintf(file, "Entries:\n");
+    for (size_t i = 0; i < tracking_allocator->length; i++) {
+        fprintf(file, "%p\n", tracking_allocator->records[i].pointer);
+    }
+}
+
 void * mk_tracking_allocator_realloc(
     MkTrackingAllocator * tracking_allocator,
     void * pointer, size_t size
@@ -111,7 +127,7 @@ void * mk_tracking_allocator_realloc(
                 &tracking_allocator->capacity,
                 &tracking_allocator->length,
                 &record,
-                sizeof(record)
+                sizeof(tracking_allocator->records[0])
             );
             if (tracking_allocator->error.type != MK_ERROR_NONE) {
                 mk_allocator_free(tracking_allocator->allocator, new_pointer);
@@ -125,10 +141,10 @@ void * mk_tracking_allocator_realloc(
         }
     }
     else {
-        bool record_found = true;
+        bool record_found = false;
         size_t record_index = 0;
         for (size_t i = 0; i < tracking_allocator->length; i++) {
-            if (tracking_allocator->records->pointer == pointer) {
+            if (tracking_allocator->records[i].pointer == pointer) {
                 record_found = true;
                 record_index = i;
                 break;
@@ -193,6 +209,7 @@ struct MkAllocator mk_tracking_allocator_get_allocator(
     MkTrackingAllocator * tracking_allocator
 ) {
     struct MkAllocator allocator = {0};
+    allocator.name = "mk_tracking_allocator";
     allocator.context = tracking_allocator;
     allocator.alloc = (MkAllocatorAllocFunction)mk_tracking_allocator_alloc;
     allocator.realloc = (MkAllocatorReallocFunction)mk_tracking_allocator_realloc;
