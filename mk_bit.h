@@ -1,7 +1,13 @@
 #ifndef MK_BIT_H_
 #define MK_BIT_H_
 
+// -----------------------------------------------------------------------------
+// PUBLIC HEADER
+// -----------------------------------------------------------------------------
+
 #include "mk_common.h"
+
+// Functions -------------------------------------------------------------------
 
 unsigned char mk_bit_get(
     unsigned char byte,
@@ -35,6 +41,10 @@ unsigned char mk_bit_array_get(
     size_t size_bytes,
     size_t bit_index
 );
+
+// -----------------------------------------------------------------------------
+// IMPLEMENTATION
+// -----------------------------------------------------------------------------
 
 #if defined MK_BIT_IMPLEMENTATION || defined MK_IMPLEMENTATION
 
