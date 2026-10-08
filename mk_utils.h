@@ -24,6 +24,12 @@ struct MkUtilsStringToFloatingResult {
     double result;
 };
 
+struct MkUtilsFileLoadResult {
+    struct MkError error;
+    char * text;
+    size_t length;
+};
+
 // Functions -------------------------------------------------------------------
 
 struct MkUtilsStringToSignedResult mk_utils_string_to_signed(
@@ -170,6 +176,36 @@ struct MkUtilsStringToFloatingResult mk_utils_string_to_floating(
 
     LABEL_ERROR_RANGE:
     out.error = mk_error_create(MK_ERROR_RANGE, "Value out of range!");
+    return out;
+}
+
+struct MkUtilsFileLoadResult mk_utils_file_load(
+    struct MkAllocator allocator,
+    const char * filename
+) {
+    struct MkUtilsFileLoadResult out = {0};
+    out.error = mk_error_create(MK_ERROR_NONE, NULL);
+    out.text = NULL;
+    out.length = 0;
+
+    FILE * file = fopen(filename, "rb");
+    if (file == NULL) {
+        out.error = mk_error_create(MK_ERROR_IO, "Could not open file!");
+        return out;
+    }
+
+    fseek(file, 0, SEEK_END);
+    out.length = ftell(file);
+    out.text = mk_allocator_alloc(allocator, out.length + 1);
+    if (out.text == NULL) {
+        out.error = mk_error_create(MK_ERROR_OOM, "Out of memory!");
+        return out;
+    }
+
+    fseek(file, 0, SEEK_SET);
+    fread(out.text, sizeof(out.text[0]), out.length, file);
+    fclose(file);
+    out.text[out.length] = '\0';
     return out;
 }
 

@@ -13,11 +13,23 @@
 #define mk_countof(x) (sizeof(x)/sizeof(x[0]))
 
 #define MK_X_MACRO_LIST_ERROR_TYPE \
-    X(MK_ERROR_NONE) \
-    X(MK_ERROR_OOM) \
-    X(MK_ERROR_IO) \
-    X(MK_ERROR_FORMAT) \
-    X(MK_ERROR_RANGE)
+X(MK_ERROR_NONE) \
+X(MK_ERROR_OOM) \
+X(MK_ERROR_IO) \
+X(MK_ERROR_FORMAT) \
+X(MK_ERROR_RANGE)
+
+#ifndef MK_ASSERT
+    #include <stdio.h>
+    #include <stdlib.h>
+    #define MK_ASSERT(condition, message) \
+    do { \
+        if (!(condition)) { \
+            fprintf(stderr, "MK_ASSERT: [%s:%d] %s\n", __FILE__, __LINE__, (message)); \
+            abort(); \
+        } \
+    } while (0)
+#endif // MK_ASSERT
 
 // Types -----------------------------------------------------------------------
 
