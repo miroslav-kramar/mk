@@ -43,6 +43,14 @@ void mk_dynamic_array_shrink_capacity(
     size_t item_size
 );
 
+void mk_dynamic_array_clear(
+    struct MkError * error,
+    struct MkAllocator allocator,
+    void ** array,
+    size_t * capacity,
+    size_t * length
+);
+
 void mk_dynamic_array_insert_many(
     struct MkError * error,
     struct MkAllocator allocator,
@@ -399,10 +407,7 @@ void mk_dynamic_array_remove_many(
     if (count == 0) {
         return;
     }
-    if (index + count - 1 >= *length) {
-        fprintf(stderr, "Range out of bounds!\n");
-        abort();
-    }
+    MK_ASSERT(index + count - 1 < *length, "Range out of bounds!");
     memmove(
         (unsigned char *)*array + index * item_size,
         (unsigned char *)*array + (index + count) * item_size,
@@ -432,10 +437,7 @@ void mk_dynamic_array_remove_range(
     if (error->type != MK_ERROR_NONE) {
         return;
     }
-    if (index_from > index_to) {
-        fprintf(stderr, "Invalid range!\n");
-        abort();
-    }
+    MK_ASSERT(index_from <= index_to, "Invalid range!");
     mk_dynamic_array_remove_many(
         error,
         allocator,
@@ -484,10 +486,7 @@ void mk_dynamic_array_remove_unordered_many(
     if (error->type != MK_ERROR_NONE) {
         return;
     }
-    if (index + count - 1 >= *length) {
-        fprintf(stderr, "Range out of bounds!\n");
-        abort();
-    }
+    MK_ASSERT(index + count - 1 < *length, "Range out of bounds!");
     if (count > *length - (index + count)) {
         memmove(
             (unsigned char *)*array + index * item_size,
@@ -526,10 +525,7 @@ void mk_dynamic_array_remove_unordered_range(
     if (error->type != MK_ERROR_NONE) {
         return;
     }
-    if (index_from > index_to) {
-        fprintf(stderr, "Invalid range!\n");
-        abort();
-    }
+    MK_ASSERT(index_from <= index_to, "Invalid range!");
     mk_dynamic_array_remove_unordered_many(
         error,
         allocator,

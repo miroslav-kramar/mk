@@ -25,7 +25,7 @@ X(MK_ERROR_RANGE)
     #define MK_ASSERT(condition, message) \
     do { \
         if (!(condition)) { \
-            fprintf(stderr, "MK_ASSERT: [%s:%d] %s\n", __FILE__, __LINE__, (message)); \
+            fprintf(stderr, "MK_ASSERT: %s\n", (message)); \
             abort(); \
         } \
     } while (0)
